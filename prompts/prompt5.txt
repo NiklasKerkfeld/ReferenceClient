@@ -1,0 +1,36 @@
+Please process the attached PDF file containing multiple references.
+
+	Extract ALL references from the PDF.
+
+For each reference a) Output the full original reference string exactly as it appears using <refstring>
+b) Annotate each reference using only the following XML-like tags: <author>, <surname>, <given-names>, <year>, <title>, <source>, <editor>, <volume>, <issue>, <fpage>, <lpage>, <publisher>, <other>.
+
+
+	Generate an XML tag only if the corresponding information is explicitly present in the reference.
+
+
+	If a specific bibliographic element (e.g., editor, volume, issue, or pages) is not provided, do not generate the respective tag.
+
+
+	If a reference cannot be clearly identified, mark it as „unidentified“ or leave the row empty.
+
+Output format:
+- Produce the result as an XML file structured like an Excel table.
+- Each reference must appear in a separate row.
+- Start with <refstring> and follow with the annotated elements.
+Formatting rules:
+<author>: use <surname> and <given-names> as sub-tags, with a comma between them.
+<given-names>: always use the full given name as it appears in the reference. Do not abbreviate. (e.g., "Constanze" not "C.")
+<editor>: plain string only, no sub-tags. „In:" and „(Hrsg.)" stay outside the tag as plain text. If multiple editors are present, each editor must be annotated in a separate <editor> tag.
+<source>: use for any container of the work including: journal names, book titles, edited volumes, reports, websites.
+<publisher>: use for the publishing house/institution (e.g. "Springer").
+<other>: use for additional information that does not fit into other tags, including:
+- place of publication (city)
+- institutional details
+- series information
+If both place and publisher are present: <other>City</other>: <publisher>Publisher</publisher>
+Page numbers: always use <fpage> and <lpage> separately.
+<doi>: use only if a DOI is explicitly present.
+<link>: use only if a URL is explicitly present.
+Critical Rule:
+a) "In:" and "(Hrsg.)" must be preserved exactly as plain text b) Do not remove modify or place them inside any XML tag c) If present in <refstring> they must also appear in the structured output
