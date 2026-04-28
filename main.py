@@ -38,7 +38,7 @@ def main(cfg: DictConfig):
     with open(cfg.prompt, "r") as path:
         request = path.read()
 
-    files = list(glob.glob(f"{cfg.preprocessed}/*.pdf"))
+    files = list(glob.glob(f"{cfg.input}/*.pdf"))
     successful = 0
     failed = []
 
