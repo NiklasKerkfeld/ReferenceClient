@@ -1,6 +1,4 @@
-Please process the attached PDF file containing multiple references.
-
-	Extract ALL references from the PDF.
+I have provided the text of a document in the context below. Please extract the bibliography/references from this text.
 
 For each reference a) Output the full original reference string exactly as it appears using <refstring>
 b) Annotate each reference using only the following XML-like tags: <author>, <surname>, <given-names>, <year>, <title>, <source>, <editor>, <volume>, <issue>, <fpage>, <lpage>, <publisher>, <other>.
@@ -16,7 +14,7 @@ b) Annotate each reference using only the following XML-like tags: <author>, <su
 
 Output format:
 - Produce the result as an XML file structured like an Excel table.
-- Each reference must appear in a separate row.
+- Each reference must appear in a separate <row> xml element.
 - Start with <refstring> and follow with the annotated elements.
 Formatting rules:
 <author>: use <surname> and <given-names> as sub-tags, with a comma between them.

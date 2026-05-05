@@ -141,17 +141,8 @@ class APIClient:
 
         payload = {
             "model": self.model,
-            "num_ctx": 64_000,
             "messages": [{"role": "user", "content": message}],
-            "files": [{"type": "file", "id": file_id}],
-            "temperature": 0.0,
-            # "rag": {
-            #     "top_k": 100,
-            #     "score_threshold": 0.0,
-            #     "num_results": 100,
-            #     "reranking_model": "bge-reranker-v2-m3",
-            #     "template": "--- BEGIN FILE CONTENT: {{filename}} ---\n{{context}}\n--- END FILE CONTENT ---"
-            # }
+            "files": [{"type": "file", "id": file_id, "context": "full"}]
         }
 
         response = requests.post(url, headers=headers, json=payload)

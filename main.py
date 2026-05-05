@@ -30,10 +30,9 @@ def main(cfg: DictConfig):
         text_file.write("\n")
 
     client = APIClient(TOKEN,
-                            model=cfg.model,
-                            server=cfg.server,
-                            timeout=cfg.timeout)
-
+                       model=cfg.model,
+                       server=cfg.server,
+                       timeout=cfg.timeout)
 
     with open(cfg.prompt, "r") as path:
         request = path.read()
@@ -81,12 +80,11 @@ def main(cfg: DictConfig):
         with open(f"{cfg.output}/response/{file[:-4]}.json", 'w', encoding='utf-8') as f:
             json.dump(response, f, ensure_ascii=False, indent=4)
 
-        xml_response = extract_xml(message)
-        with open(f"{cfg.output}/xml/{file[:-4]}.xml", "w") as text_file:
-            text_file.write(xml_response)
-
         try:
-            add2csv(xml_response, f"{cfg.output}/output.csv", file[:-4])
+            xml_response = extract_xml(message)
+            if xml_response == "": raise Exception("xml string is empty")
+            with open(f"{cfg.output}/xml/{file[:-4]}.xml", "w") as text_file:
+                text_file.write(xml_response)
         except Exception as e:
             with open(f"{cfg.output}/log.txt", "a") as text_file:
                 text_file.write(f"Got this Exception with {file} during the xml extraction:")
@@ -95,9 +93,18 @@ def main(cfg: DictConfig):
                 failed.append(file)
                 continue
 
+        try:
+            add2csv(xml_response, f"{cfg.output}/output.csv", file[:-4])
+        except Exception as e:
+            with open(f"{cfg.output}/log.txt", "a") as text_file:
+                text_file.write(f"Got this Exception with {file} during the csv extraction:")
+                text_file.write(str(e))
+                text_file.write("\n")
+                failed.append(file)
+                continue
+
         successful += 1
         bar.set_description(f"{file[:-4]} Successful: {successful}/{successful + len(failed)}")
-
 
     print(f"Process completed.")
     print(f"Successful: {successful}/{len(files)}")
