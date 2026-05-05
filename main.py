@@ -2,6 +2,7 @@ import glob
 import json
 import os
 import time
+from os.path import isfile
 
 from tqdm import tqdm
 
@@ -62,6 +63,9 @@ def main(cfg: DictConfig):
     for path in bar:
         file = os.path.basename(path)
         bar.set_description(f"{file[:-4]} Successful: {successful}/{successful + len(failed)}")
+
+        if isfile(f"{cfg.output}/message/{file[:-4]}.txt"):
+            continue
 
         try:
             response = client.request_file(path, request)
