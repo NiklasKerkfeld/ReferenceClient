@@ -30,6 +30,9 @@ def main(input: str, output: str) -> None:
     for file in tqdm(files, total=len(files), desc="Converting..."):
         name = os.path.basename(file)[:-4]
 
+        if os.path.isfile(f"./{output}/{name}.md"):
+            continue
+
         text = to_text(file)
 
         os.makedirs(f"./{output}", exist_ok=True)
