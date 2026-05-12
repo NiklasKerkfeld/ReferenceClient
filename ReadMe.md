@@ -17,7 +17,6 @@ model: the model you want to use
 prompt: path to the prompt .txt file
 input: folder with the pdfs
 output: folder where the results are saved
-preprocessed: folder for the preprocessed pdf
 timeout: time until file upload is canceled
 ```
 You can also set variable on specific runs by given them as hyperparameter like this:
