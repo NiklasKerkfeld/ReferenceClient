@@ -57,7 +57,7 @@ def main(cfg: DictConfig):
             document = md_file.read()
 
         try:
-            response = client.request(f"{request}\n\n{document}\n\n{request}")
+            response = client.request(f"{document}\n\n{request}")
             message = response['choices'][0]['message']['content']
 
             with open(f"{cfg.output}/message/{file[:-4]}.txt", "w") as text_file:
