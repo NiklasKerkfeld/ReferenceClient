@@ -24,15 +24,6 @@ You can also set variable on specific runs by given them as hyperparameter like 
 python main.py output=path/to/folder
 ```
 
-
-## Preprocessing
-Unfortunately a lot of files are not comatible with the Gesis API as they are. 
-The solution I found is to open it once in LibreOffice Draw and export it again as pdf.
-I could automate this process using the preprocessing script. 
-```terminaloutput
-python preprocess.py
-```
-
 ## Run
 The main program can now be simply run by calling:
 ```terminaloutput
