@@ -16,7 +16,7 @@ load_dotenv()
 TOKEN = os.getenv("TOKEN")
 
 
-@hydra.main(version_base=None, config_path="config", config_name="config")
+@hydra.main(version_base=None, config_path="../config", config_name="config")
 def main(cfg: DictConfig):
     print(OmegaConf.to_yaml(cfg))
 
