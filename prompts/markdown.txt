@@ -1,4 +1,4 @@
-I have provided the text of a document in the context below. Please extract the bibliography/references from this text.
+I have provided the text of a document in the context above. Please extract the bibliography/references from this text.
 
 For each reference a) Output the full original reference string exactly as it appears using <refstring>
 b) Annotate each reference using only the following XML-like tags: <author>, <surname>, <given-names>, <year>, <title>, <source>, <editor>, <volume>, <issue>, <fpage>, <lpage>, <publisher>, <other>.
