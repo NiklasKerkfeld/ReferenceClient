@@ -2,6 +2,7 @@ import glob
 import json
 import os
 from os.path import isfile
+from pathlib import Path
 
 from tqdm import tqdm
 
@@ -48,7 +49,7 @@ def main(cfg: DictConfig):
         with open(path, "r") as md_file:
             document = md_file.read()
 
-        if isfile(f"{cfg.output}/message/{file[:-4]}.txt"):
+        if isfile(f"{cfg.output}/message/{Path(file).stem}.txt"):
             continue
 
         try:
@@ -62,16 +63,16 @@ def main(cfg: DictConfig):
                 failed.append(file)
                 continue
 
-        with open(f"{cfg.output}/message/{file[:-4]}.txt", "w") as text_file:
+        with open(f"{cfg.output}/message/{Path(file).stem}.txt", "w") as text_file:
             text_file.write(message)
 
-        with open(f"{cfg.output}/response/{file[:-4]}.json", 'w', encoding='utf-8') as f:
+        with open(f"{cfg.output}/response/{Path(file).stem}.json", 'w', encoding='utf-8') as f:
             json.dump(response, f, ensure_ascii=False, indent=4)
 
         try:
             xml_response = extract_xml(message)
             if xml_response == "": raise Exception("xml string is empty")
-            with open(f"{cfg.output}/xml/{file[:-4]}.xml", "w") as text_file:
+            with open(f"{cfg.output}/xml/{Path(file).stem}.xml", "w") as text_file:
                 text_file.write(xml_response)
 
         except Exception as e:
@@ -83,7 +84,7 @@ def main(cfg: DictConfig):
                 continue
 
         try:
-            add2csv(xml_response, f"{cfg.output}/output.csv", file[:-4])
+            add2csv(xml_response, f"{cfg.output}/output.csv", Path(file).stem)
         except Exception as e:
             with open(f"{cfg.output}/log.txt", "a") as text_file:
                 text_file.write(f"Got this Exception with {file} during the csv extraction:")
@@ -93,7 +94,7 @@ def main(cfg: DictConfig):
                 continue
 
         successful += 1
-        bar.set_description(f"{file[:-4]} Successful: {successful}/{successful + len(failed)}")
+        bar.set_description(f"{Path(file).stem} Successful: {successful}/{successful + len(failed)}")
 
     print(f"Process completed.")
     print(f"Successful: {successful}/{len(files)}")
