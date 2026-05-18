@@ -145,7 +145,7 @@ class APIClient:
             "files": [{"type": "file", "id": file_id, "context": "full"}]
         }
 
-        response = requests.post(url, headers=headers, json=payload)
+        response = requests.post(url, headers=headers, json=payload, timeout=self.timeout)
 
         if response.status_code != 200:
             raise HTTPError(f"Error: {response.status_code}")

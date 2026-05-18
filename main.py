@@ -109,6 +109,7 @@ def main(cfg: DictConfig):
 
         successful += 1
         bar.set_description(f"{file[:-4]} Successful: {successful}/{successful + len(failed)}")
+        time.sleep(5)
 
     print(f"Process completed.")
     print(f"Successful: {successful}/{len(files)}")
